@@ -139,7 +139,7 @@ else:
     sleep(1)
     print("startSector: "+c.BLUE+"{}".format(startSector) + c.DEFAULT)
     p = Popen(["sudo", "losetup", "/dev/loop0", imageName + ".img", "-o", str((startSector * 512))], stdout=PIPE).communicate()
-    print("\n" + c.RED + "Instructions:" + c.DEFAULT)
+    print("\n" + c.RED + "Instructions:" + c.YELLOW)
     print("    Be prepaired to take note of the new size of the image...")
     print("    Write down the info as soon as you have a successfull shrinking of the image,")
     print("    Read ALL OF THESE STEPS before you close any windows from gparted...")
@@ -151,18 +151,18 @@ else:
     print("       4. Ctrl-Enter to 'Apply all operations'")
     print("       5. If the resize is unsuccessful,")
     print("         Try resizing the partition a little larger")
-    print("       6.  When the resize "+c.YELLOW+"IS"+c.DEFAULT+" successful:")
+    print("       6.  When the resize "+c.RED+"IS"+c.YELLOW+" successful:")
     print("         a. You will need to click 'Details'")
     print("         b. click 'shrink file system'")
-    print("         c. "+c.RED+"WRITE DOWN"+c.DEFAULT+": resize2f-p /dev/loop0 "+c.BLUE+"#######K"+c.DEFAULT)
-    print("         d. You just need those numbers in the next step\n")
+    print("         c. "+c.RED+"WRITE DOWN"+c.YELLOW+": resize2f-p /dev/loop0 "+c.BLUE+"#######K"+c.YELLOW)
+    print("         d. You just need those numbers in the next step\n"+c.DEFAULT)
     sleep(3)
 
     p = Popen(["sudo", "gparted", "/dev/loop0"], stdout=PIPE).communicate()
     imageLetter = "K"
     imageSize = None
     while type(imageSize) is not int:
-        imageSize = raw_input("What is the size of the image from gparted? "+c.BLUE+"########"+c.DEFAULT+": ")
+        imageSize = raw_input(c.YELLOW"What is the size of the image from gparted? "+c.BLUE+"########"+c.DEFAULT+": ")
         if bool(re.search(r"^\d{1,}$", imageSize)) is False:
             if bool(re.search(r"^\+\d{1,}", imageSize)):
                 imageSize = imageSize[1:]
@@ -250,9 +250,9 @@ else:
     p = Popen(["sudo", "dcfldd", "if=/dev/zero", "of=/mnt/imageroot/zero.txt"], stdout=PIPE)
     out, err = p.communicate()
     print(out)
-    sleep(1)
+    sleep(2)
     p = Popen(["sudo", "rm", "/mnt/imageroot/zero.txt"], stdout=PIPE).communicate()
-    sleep(4)
+    sleep(10)
     p = Popen(["sudo", "umount", "/mnt/imageroot"], stdout=PIPE).communicate()
     sleep(1)
     p = Popen(["sudo", "rmdir", "/mnt/imageroot"], stdout=PIPE).communicate()
@@ -260,15 +260,16 @@ else:
     p = Popen(["sudo", "losetup", "-d", "/dev/loop0"], stdout=PIPE).communicate()
     sleep(1)
     print(c.YELLOW+"Now zipping the image...\n  This could take a long time."+c.DEFAULT)
-
+    
+    p = Popen(["sudo", "chown", username + ":" + username, imageName + ".img"], stdout=PIPE)
+    out, err = p.communicate()
+    
     p = Popen(["sudo", "zip", imageName + ".zip", imageName + ".img"], stdout=PIPE)
     out, err = p.communicate()
     print(out)
     #p2 = Popen(["sudo", "pv", imageName + ".img"], stdout=p)
     #out, err = p2.communicate()
-    p = Popen(["sudo", "chown", username + ":" + username, imageName + ".img"], stdout=PIPE)
-    out, err = p.communicate()
-    p = Popen(["sudo", "chown", username + ":" + username, imageName + ".zip"], stdin=p, stdout=PIPE)
+    p = Popen(["sudo", "chown", username + ":" + username, imageName + ".zip"], stdout=PIPE)
     out, err = p.communicate()
     print("Image shrinking is complete.")
 #except:
