@@ -51,6 +51,10 @@ def query_yes_no(question, default="no"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
+if sys.platform is not "linux" or sys.platform is not "linux2":
+    print(c.RED+"\nThis script was written for Linux OS."+c.DEFAULT)
+    sys.exit()
+  
 if os.getuid() is not 0:
     print(c.RED+"Please run as sudo:\n\t"+c.YELLOW+"sudo python shrink.py\n"+c.DEFAULT)
     sys.exit()
