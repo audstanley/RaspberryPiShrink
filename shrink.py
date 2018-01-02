@@ -76,14 +76,13 @@ else:
     out, err = p.communicate()
     print(out)
 
+    # Check for dependencies, and automatically install them if needed
     p = Popen(["whereis", "gparted"], stdout=PIPE)
     out1, err = p.communicate()
-    p = Popen(["whereis", "pv"], stdout=PIPE)
-    out2, err = p.communicate()
     p = Popen(["whereis", "dcfldd"], stdout=PIPE)
-    out3, err = p.communicate()
+    out2, err = p.communicate()
     
-    if out1[8:] == "\n" or out2[3:] == "\n" or out3[7:] == "\n":
+    if out1[8:] == "\n" or out2[7:] == "\n":
         print(c.YELLOW+"Installing dependencies\n  This may take a minute..."+c.DEFAULT)
         p = Popen(["sudo","apt-get","update"], stdout=PIPE).communicate()
         p = Popen(["sudo","apt-get","install","dcfldd", "gparted", "pv", "-y"], stdout=PIPE).communicate()
