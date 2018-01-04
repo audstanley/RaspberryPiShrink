@@ -123,7 +123,7 @@ else:
             print(c.RED+"ERROR"+c.DEFAULT+": The device should only be three letters long (Ex. sdc)")
             device = raw_input("\nEnter the device you want to create an image of (Ex. sdc): ")
     if bool(re.search(r"\/dev\/\w{3}", device)):
-        device = re.findall(r"\/dev\/(\w{3})\d{1}?", device)[0]
+        device = re.findall(r"\/dev\/([a-z]{3})\d*", device)[0]
     print(c.YELLOW+"First, we need to copy the whole image"+c.CYAN)
     p = Popen(["sudo", "dcfldd", "if=/dev/" + device, "of=" + imageName + ".img"], stdout=PIPE)
     out, err = p.communicate()
