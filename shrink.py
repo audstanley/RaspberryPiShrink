@@ -51,8 +51,8 @@ def query_yes_no(question, default="no"):
             sys.stdout.write("Please respond with 'yes' or 'no' "
                              "(or 'y' or 'n').\n")
 
-if sys.platform is not "linux":
-        if sys.platform is not "linux2":
+if sys.platform != "linux":
+        if sys.platform != "linux2":
             print(c.RED+"\nThis script was written for Linux OS."+c.DEFAULT)
             sys.exit()
   
