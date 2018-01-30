@@ -166,7 +166,7 @@ else:
     imageLetter = "K"
     imageSize = None
     while type(imageSize) is not int:
-        imageSize = raw_input(c.YELLOW"What is the size of the image from gparted? "+c.BLUE+"########"+c.DEFAULT+": ")
+        imageSize = raw_input(c.YELLOW+"What is the size of the image from gparted? "+c.BLUE+"########"+c.DEFAULT+": ")
         if bool(re.search(r"^\d{1,}$", imageSize)) is False:
             if bool(re.search(r"^\+\d{1,}", imageSize)):
                 imageSize = imageSize[1:]
