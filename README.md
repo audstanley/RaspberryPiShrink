@@ -18,7 +18,7 @@ sudo python shrink.py
 After Gpared opend, resize/move this image so that it's smaller.
 Don't worry, The image is on a loopback so you are NOT actuall resizing the image on your sd card.  You are resizing the image that the python script made a copy of.  Also, if you get an error in gparted when you resize the image, than it could be because you tried to shrink the image too small, so just try again and give the image an additional 600M or 800M, and that will solve the problem.  In some cases I had to add 1Gb on really large Raspberry Pi SD cards. (if I had like 6Gb of things that were installed on the SD card).  Otherwise, just play with the numbers.  It's not going to hurt anything if the shrinking fails, you can just try again from within GParted.
 
-**You will need to write down this number from gparted:**
+**You will need to write down this number from gparted once gparted successfully shrinks the partition:**
 > **resize2fs-p /dev/loop0 (THIS NUMBER)K**
 
 Here is an example:
