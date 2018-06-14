@@ -23,7 +23,7 @@ Don't worry, The image is on a loopback so you are NOT actuall resizing the imag
 
 Here is an example:
 
-![img](http://ww2.audstanley.com:8081/cpp/photos/gparted.png)
+![img](http://wwW.audstanley.com:8081/cpp/photos/gparted.png)
 
 In this picture, I would write down: 4864000K
 DO NOT CLOSE OUT GPARTED UNTIL YOU WRITE THAT NUMBER DOWN.
